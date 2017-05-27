@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="petForm" (ngSubmit)="onSubmit()">
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="btn btn-success"
+                  [disabled] ="!petForm.valid"
+                  type="submit">Save</button>
+          <button class="btn btn-danger" (click)="onCancel()" type="button">Cancel</button>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagepath">Image URL</label>
+            <input
+              type="text"
+              id="imagepath"
+              formControlName="imagepath"
+              class="form-control"
+              #imagepath>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12">
+          <img [src]="imagepath.value" class="img-responsive">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              type="text"
+              id="description"
+              class="form-control"
+              formControlName="description"
+              rows="6"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12" formArrayName="foods">
+          <div
+            class="row"
+            *ngFor="let foodCtrl of petForm.get('foods').controls; let i = index"
+            [formGroupName]="i"
+            style="margin-top: 10px;">
+            <div class="col-xs-8">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name">
+            </div>
+            <div class="col-xs-2">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="amount">
+            </div>
+            <div class="col-xs-2">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="onDeleteFood(i)">X</button>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-xs-12">
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="onAddFood()">Add Pet Food</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
